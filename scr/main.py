@@ -11,14 +11,14 @@ features =data.data
 target = data.target
 
 plt.figure(figsize=(16,8))
-plt.subplot(2,2,1)
+plt.subplot(2,2,1).set_title('Sem PCA')
 plt.scatter(features[:,0], features[:,1], c=target,marker='o',cmap='viridis')
 
 Classificador = MLPClassifier(hidden_layer_sizes = (90,80,60,30,20), alpha=1, max_iter=500)
 Classificador.fit(features,target)
 predicao = Classificador.predict(features)
 
-plt.subplot(2,2,3)
+plt.subplot(2,2,3).set_title('Classificação sem PCA')
 plt.scatter(features[:,0], features[:,1], c=predicao,marker='d',cmap='viridis',s=150)
 plt.scatter(features[:,0], features[:,1], c=target,marker='o',cmap='viridis',s=15)
 
@@ -27,7 +27,7 @@ pca = pca.fit(features)
 pca_features = pca.transform(features)
 print('Mantida %5.2f%% da informação do conjunto inicial de dados'%(sum(pca.explained_variance_ratio_)*100))
 
-plt.subplot(2,2,2)
+plt.subplot(2,2,2).set_title('Dados após PCA')
 plt.scatter(pca_features[:,0], pca_features[:,1], c=target,marker='o',cmap='viridis')
 
 ClassificadorPCA = MLPClassifier(hidden_layer_sizes = (90,80,60,30,20), alpha=1, max_iter=500)
@@ -35,7 +35,7 @@ ClassificadorPCA.fit(pca_features,target)
 
 predicao = ClassificadorPCA.predict(pca_features)
 
-plt.subplot(2,2,4)
+plt.subplot(2,2,4).set_title('Classificação após PCA')
 plt.scatter(pca_features[:,0], pca_features[:,1], c=predicao,marker='d',cmap='viridis',s=150)
 plt.scatter(pca_features[:,0], pca_features[:,1], c=target,marker='o',cmap='viridis',s=15)
 plt.show()
